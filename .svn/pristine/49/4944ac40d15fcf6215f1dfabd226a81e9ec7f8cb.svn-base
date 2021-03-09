@@ -1,0 +1,11 @@
+﻿using System.Collections.Generic;
+
+namespace Demo
+{
+    public class Package
+    {
+        public string Name { get; set; }
+
+        public List<Doc> Docs { get; set; } = new List<Doc>();
+    }
+}

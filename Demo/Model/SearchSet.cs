@@ -1,0 +1,13 @@
+﻿using System.Collections.ObjectModel;
+
+namespace Demo
+{
+    public class SearchSet
+    {
+        public ObservableCollection<SearchCondition> Conditions { get; } 
+            = new ObservableCollection<SearchCondition>();
+
+        public ObservableCollection<Package> Result { get; set; } 
+            = new ObservableCollection<Package>();
+    }
+}
