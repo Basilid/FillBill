@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Fill-Bill WPF Demo" Height="450" Width="800" WindowStyle="None">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Controls/TabControlTitled.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <local:PackageStatus2StringConverter x:Key="PackageStatus2StringConverterSingle"/>
-            <local:Package x:Key="Package1"></local:Package>
             <DataTemplate DataType="{x:Type local:SearchSet}">
                 <Grid IsSharedSizeScope="True">
                     <Grid.RowDefinitions>
@@ -74,81 +73,106 @@
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
-
     </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
+    </Window.CommandBindings>
     <DockPanel HorizontalAlignment="Stretch" UseLayoutRounding="False">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Выход" Click="MenuItem_OnClick"/>
-        </Menu>
-        <DockPanel SnapsToDevicePixels="True" Margin="5" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-            <Button>
-                <Image Source="/Images/next.png" Height="16"/>
-            </Button>
-            <ComboBox Text="fillbill://data.ctm.ru/package?id=35044&amp;smgs=C54675675&amp;column=25&amp;record=1" StaysOpenOnEdit="True" 
-                      SnapsToDevicePixels="True" IsEditable="True" Margin="5,0,0,0"/>
-        </DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 Status
             </StatusBarItem>
         </StatusBar>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="6*"/>
-            </Grid.ColumnDefinitions>
-            <GridSplitter HorizontalAlignment="Stretch" Width="5" Grid.Column="1"/>
-            <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle1}" Grid.Column="0" Name="TreeView1" Padding="0,0,0,0">
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type local:Package}" ItemsSource="{Binding Path=Docs}">
-                        <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5">
-                            <Image Source="/Images/db.png" Height="16"/>
-                            <Label Content="{Binding Number, StringFormat='Пакет: {0}'}"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type local:SMGS}">
-                        <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top" RenderTransformOrigin="0.5,0.5">
-                            <Image Source="/Images/document.png" Height="16"/>
-                            <Label Content="{Binding Number, StringFormat='СМГС: {0}'}"/>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-            <local:TabControlTitled Title="Поиск и пакеты:" Grid.Column="2">
-                <TabItem>
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../Images/db.png" Height="16"/>
-                            <Label Content="PK-45645"/>
-                        </StackPanel>
-                    </TabItem.Header>
-                    <local:TabControlTitled Title="Страницы:">
+        <local:TabControlTitled LeftTitle="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" DockPanel.Dock="Top" MouseDown="Title_MouseDown">
+            <local:TabControlTitled.RightTitle>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="🗕" Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
+                    <Button Content="🗖" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                    <Button Content="❌" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="OrangeRed"/>
+                </StackPanel>
+            </local:TabControlTitled.RightTitle>
+            <TabItem Name="SearchTab1">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/search.png" Height="16" />
+                        <Label Content="Требует проверки (5)" />
+                    </StackPanel>
+                </TabItem.Header>
+
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/db.png" Height="16" />
+                        <Label Content="Пакет: 034456" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="6*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Menu Grid.Row="0">
+                            <MenuItem Header="Команды">
+                                <MenuItem Header="История изменений" />
+                            </MenuItem>
+                            <MenuItem Header="Отправка">
+                                <MenuItem Header="Перепроверка" />
+                            </MenuItem>
+                        </Menu>
+                        <TextBlock Grid.Row="1" Margin="5">Статус: Проверка</TextBlock>
+                        <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle1}" 
+                                  Name="TreeView1" Padding="0,0,0,0" Grid.Row="2">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type local:Package}"
+                                                          ItemsSource="{Binding Path=Docs}">
+                                    <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
+                                                RenderTransformOrigin="0.5,0.5">
+                                        <Image Source="/Images/db.png" Height="16" />
+                                        <Label Content="{Binding Number, StringFormat='Пакет: {0}'}" />
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type local:SMGS}">
+                                    <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
+                                                RenderTransformOrigin="0.5,0.5">
+                                        <Image Source="/Images/document.png" Height="16" />
+                                        <Label Content="{Binding Number, StringFormat='СМГС: {0}'}" />
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </Grid>
+                    <GridSplitter HorizontalAlignment="Stretch" Width="5" Grid.Column="1" />
+                    <local:TabControlTitled LeftTitle="Страницы:" Grid.Column="2">
                         <TabItem Header="СМГС #1">
                             <ScrollViewer VerticalScrollBarVisibility="Visible">
-                                <Image x:Name="docImage" Source="../Images/SMGS.png" Stretch="UniformToFill" Margin="0,0,10,0"></Image>
+                                <Image x:Name="docImage" Source="../Images/SMGS.png" Stretch="UniformToFill"
+                                       Margin="0,0,10,0">
+                                </Image>
                             </ScrollViewer>
                         </TabItem>
-                        <TabItem Header="Page #2"/>
+                        <TabItem Header="Page #2" />
                     </local:TabControlTitled>
-                </TabItem>
-                <TabItem Name="SearchTab1">
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../Images/search.png" Height="16"/>
-                            <Label Content="S-345345"/>
-                        </StackPanel>
-                    </TabItem.Header>
-                </TabItem>
-                <TabItem>
-                    <TabItem.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="../Images/add.png" Height="16"/>
-                            <Label Content="Искать..."/>
-                        </StackPanel>
-                    </TabItem.Header>
-                </TabItem>
-            </local:TabControlTitled>
-        </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/add.png" Height="16" />
+                        <Label Content="Искать..." />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </local:TabControlTitled>
     </DockPanel>
 </Window>

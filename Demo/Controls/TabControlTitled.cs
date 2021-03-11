@@ -5,13 +5,23 @@ namespace Demo
 {
     public class TabControlTitled: TabControl
     {
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-            "Title", typeof(string), typeof(TabControlTitled), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty LeftTitleProperty = DependencyProperty.Register(
+            "LeftTitle", typeof(object), typeof(TabControlTitled), new PropertyMetadata(default(object)));
 
-        public string Title
+
+        public object LeftTitle
         {
-            get => (string) GetValue(TitleProperty);
-            set => SetValue(TitleProperty, value);
+            get => GetValue(LeftTitleProperty);
+            set => SetValue(LeftTitleProperty, value);
+        }
+
+        public static readonly DependencyProperty RightTitleProperty = DependencyProperty.Register(
+            "RightTitle", typeof(object), typeof(TabControlTitled), new PropertyMetadata(default(object)));
+
+        public object RightTitle
+        {
+            get => GetValue(RightTitleProperty);
+            set => SetValue(RightTitleProperty, value);
         }
     }
 }

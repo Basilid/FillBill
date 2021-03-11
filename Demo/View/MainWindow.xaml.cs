@@ -20,6 +20,30 @@ namespace Demo
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Binding Commands
+
+        private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.CloseWindow(this);
+        }
+
+        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MaximizeWindow(this);
+        }
+
+        private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
+        }
+
+        #endregion
+
         public SearchSet SearchSet = new SearchSet
         {
             Conditions = { new SearchCondition
@@ -67,6 +91,12 @@ namespace Demo
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
         {
             SearchSet.Conditions.Remove((SearchCondition)((Button)sender).Tag);
+        }
+
+        private void Title_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }
