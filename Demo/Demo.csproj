@@ -10,6 +10,8 @@
     <None Remove="Images\add.png" />
     <None Remove="Images\db.png" />
     <None Remove="Images\document.png" />
+    <None Remove="Images\file.png" />
+    <None Remove="Images\FillBill.png" />
     <None Remove="Images\next.png" />
     <None Remove="Images\pin.png" />
     <None Remove="Images\remove.png" />
@@ -23,6 +25,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\db.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\file.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\FillBill.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\next.png">

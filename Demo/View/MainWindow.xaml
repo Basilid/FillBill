@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="Fill-Bill WPF Demo" Height="450" Width="800" WindowStyle="None">
+        Title="Fill-Bill WPF Demo" Height="450" Width="800" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,60 +16,82 @@
                 <Grid IsSharedSizeScope="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <GridSplitter VerticalAlignment="Stretch" Height="5" Grid.Row="2"/>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Margin="5" Click="ButtonBase_OnClick">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Images/add.png" Height="16"/>
-                                    <Label Content="Добавить поле"/>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Margin="5">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Images/document.png" Height="16"/>
-                                    <Label Content="Найти"/>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </StackPanel>
-                    <ListBox Grid.Row="0" ItemsSource="{Binding Conditions}" MinHeight="50">
-                        <ListBox.Resources>
-                            <DataTemplate DataType="{x:Type local:SearchCondition}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SearchFieldName"/>
-                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SearchPattern"/>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <CheckBox Grid.Column="0" IsChecked="{Binding IsActive}" VerticalAlignment="Center"/>
-                                    <ComboBox Grid.Column="1" IsEditable="True" Text="{Binding FieldName}" VerticalAlignment="Center" IsTabStop="True" />
-                                    <TextBox Grid.Column="2" Text="{Binding Pattern}" MinWidth="100" MinHeight="22" VerticalAlignment="Center"  IsTabStop="True"/>
-                                    <ToggleButton Margin="2" Grid.Column="3" IsChecked="{Binding IsFixed}"  IsTabStop="False">
-                                        <Image Source="../Images/star.png" Height="16"/>
-                                    </ToggleButton>
-                                    <Button Margin="2" Grid.Column="4" IsTabStop="False" Tag="{Binding}" Click="ButtonRemove_Click">
-                                        <Image Source="../Images/remove.png" Height="16"/>
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.Resources>
-                    </ListBox>
-                    <DataGrid Grid.Row="3" ItemsSource="{Binding Result}" AutoGenerateColumns="False" CanUserAddRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Номер" Binding="{Binding Number, Mode=TwoWay}" Width="SizeToCells"/>
-                            <DataGridTextColumn Header="Статус"  Binding="{Binding Status, Converter={StaticResource PackageStatus2StringConverterSingle}}" IsReadOnly="True" Width="SizeToCells"/>
-                            <DataGridTextColumn Header="СМГС" Binding="{Binding SMGSNum}" IsReadOnly="True" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Border Grid.Row="0" BorderThickness="1" BorderBrush="CadetBlue">
+                        <StackPanel>
+                            <StackPanel>
+                                <Label FontWeight="Bold" Background="CadetBlue" Foreground="Azure" HorizontalContentAlignment="Center" Content="Критерии поиска" />
+                                <ListBox ItemsSource="{Binding Conditions}" MinHeight="50" BorderBrush="Transparent">
+                                    <ListBox.Resources>
+                                        <DataTemplate DataType="{x:Type local:SearchCondition}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="SearchFieldName"/>
+                                                    <ColumnDefinition Width="Auto" SharedSizeGroup="SearchPattern"/>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox Grid.Column="0" IsChecked="{Binding IsActive}" VerticalAlignment="Center"/>
+                                                <ComboBox Grid.Column="1" IsEditable="True" Text="{Binding FieldName}" VerticalAlignment="Center" VerticalContentAlignment="Center" IsTabStop="True" />
+                                                <TextBox Grid.Column="2" Text="{Binding Pattern}" MinWidth="100" MinHeight="22" VerticalAlignment="Center" VerticalContentAlignment="Center"  IsTabStop="True" BorderBrush="Transparent"/>
+                                                <ToggleButton Margin="2" Grid.Column="3" IsChecked="{Binding IsFixed}"  IsTabStop="False">
+                                                    <Image Source="../Images/star.png" Height="16"/>
+                                                </ToggleButton>
+                                                <Button Margin="2" Grid.Column="4" IsTabStop="False" Tag="{Binding}" Click="ButtonRemove_Click">
+                                                    <Image Source="../Images/remove.png" Height="16"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.Resources>
+                                </ListBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Button Margin="5" Click="ButtonBase_OnClick">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/add.png" Height="16" />
+                                            <Label Content="Добавить поле" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Button Margin="5">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="/Images/document.png" Height="16" />
+                                            <Label Content="Начать поиск" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Margin="0,10,0,0" BorderBrush="SteelBlue" Grid.Row="1">
+                        <StackPanel>
+                            <Label FontWeight="Bold" Background="SteelBlue" Foreground="Azure" HorizontalContentAlignment="Center" Content="Результаты" />
+                            <DataGrid ItemsSource="{Binding Result}" AutoGenerateColumns="False" CanUserAddRows="False" 
+                                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="SteelBlue" HeadersVisibility="Column">
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="DimGray" />
+                                        <Setter Property="Foreground" Value="Azure"></Setter>
+                                        <Setter Property="Padding" Value="10"></Setter>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Номер" Binding="{Binding Number, Mode=TwoWay}"/>
+                                    <DataGridTextColumn Header="Статус"  Binding="{Binding Status, Converter={StaticResource PackageStatus2StringConverterSingle}}" IsReadOnly="True" Width="SizeToCells"/>
+                                    <DataGridTextColumn Header="СМГС" Binding="{Binding SMGSNum}" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Комментарии" Width="*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -79,34 +101,54 @@
         <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2" />
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
     </Window.CommandBindings>
-    <DockPanel HorizontalAlignment="Stretch" UseLayoutRounding="False">
+    <DockPanel HorizontalAlignment="Stretch" UseLayoutRounding="False" Background="SteelBlue">
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 Status
             </StatusBarItem>
         </StatusBar>
-        <local:TabControlTitled LeftTitle="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}" DockPanel.Dock="Top" MouseDown="Title_MouseDown">
+        <local:TabControlTitled DockPanel.Dock="Top">
+            <local:TabControlTitled.LeftTitle>
+                <StackPanel Orientation="Horizontal" MouseDown="Title_MouseDown">
+                    <Image Source="../Images/FillBill.png" />
+                    <TextBlock FontWeight="Bold"
+                               Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                               Margin="10,0,10,0" Foreground="Azure" VerticalAlignment="Center"/>
+                </StackPanel>
+            </local:TabControlTitled.LeftTitle>
             <local:TabControlTitled.RightTitle>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="🗕" Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
-                    <Button Content="🗖" Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
-                    <Button Content="❌" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="OrangeRed"/>
+                    <Button Content="🗕" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Padding="5,0,5,0"/>
+                    <Button Content="🗖" Command="{x:Static SystemCommands.MaximizeWindowCommand}" Padding="5,0,5,0"/>
+                    <Button Content="❌" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="Red" Padding="10,0,10,0"/>
                 </StackPanel>
             </local:TabControlTitled.RightTitle>
+            <local:TabControlTitled.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="AllowDrop" Value="True"/>
+                    <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
+                    <EventSetter Event="Drop" Handler="TabItem_Drop"/>
+                </Style>
+            </local:TabControlTitled.Resources>
             <TabItem Name="SearchTab1">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../Images/search.png" Height="16" />
-                        <Label Content="Требует проверки (5)" />
+                        <TextBlock>
+                            <Run>Требует проверки</Run>
+                            <Run FontWeight="Bold">[5]</Run>
+                        </TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-
             </TabItem>
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../Images/db.png" Height="16" />
-                        <Label Content="Пакет: 034456" />
+                        <Image Source="../Images/file.png" Height="16" />
+                        <TextBlock>
+                            <Run>Пакет</Run>
+                            <Run FontWeight="Bold">034456</Run>
+                        </TextBlock>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -117,21 +159,26 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition  Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-                        <Menu Grid.Row="0">
-                            <MenuItem Header="Команды">
+                        <TextBlock FontWeight="Bold" Background="DodgerBlue" Foreground="Azure" Padding="5" TextAlignment="Center">
+                            <Run Foreground="PowderBlue">Пакет -</Run>
+                            <Run Foreground="White">Требуется проверка</Run>
+                        </TextBlock>
+                        <Menu Grid.Row="1">
+                            <MenuItem Header="Статус">
                                 <MenuItem Header="История изменений" />
                             </MenuItem>
                             <MenuItem Header="Отправка">
                                 <MenuItem Header="Перепроверка" />
                             </MenuItem>
                         </Menu>
-                        <TextBlock Grid.Row="1" Margin="5">Статус: Проверка</TextBlock>
                         <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle1}" 
-                                  Name="TreeView1" Padding="0,0,0,0" Grid.Row="2">
+                                  Name="TreeView1" Grid.Row="2">
                             <TreeView.Resources>
                                 <HierarchicalDataTemplate DataType="{x:Type local:Package}"
                                                           ItemsSource="{Binding Path=Docs}">
@@ -150,18 +197,37 @@
                                 </HierarchicalDataTemplate>
                             </TreeView.Resources>
                         </TreeView>
+                        <GridSplitter VerticalAlignment="Stretch" Height="5" Grid.Row="3" />
+                        <DockPanel Grid.Row="4">
+                            <TextBlock FontWeight="Bold" Background="YellowGreen" Padding="3" TextAlignment="Center" DockPanel.Dock="Top">
+                                <Run Foreground="White">Комментарии</Run>
+                            </TextBlock>
+                            <TextBox></TextBox>
+                        </DockPanel>
                     </Grid>
                     <GridSplitter HorizontalAlignment="Stretch" Width="5" Grid.Column="1" />
-                    <local:TabControlTitled LeftTitle="Страницы:" Grid.Column="2">
-                        <TabItem Header="СМГС #1">
-                            <ScrollViewer VerticalScrollBarVisibility="Visible">
-                                <Image x:Name="docImage" Source="../Images/SMGS.png" Stretch="UniformToFill"
+                    <StackPanel Grid.Column="2">
+                        <TextBlock FontWeight="Bold" Background="DarkSeaGreen" TextAlignment="Center" Padding="5">
+                            <Run Foreground="Beige">Инвойс -</Run>
+                            <Run Foreground="White">С34645645</Run>
+                        </TextBlock>
+                        <Menu>
+                            <MenuItem Header="Печатьный вид">
+                            </MenuItem>
+                            <MenuItem Header="Комментарии">
+                            </MenuItem>
+                        </Menu>
+                        <TabControl>
+                            <TabItem Header="СМГС #1">
+                                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                                    <Image x:Name="docImage" Source="../Images/SMGS.png" Stretch="UniformToFill"
                                        Margin="0,0,10,0">
-                                </Image>
-                            </ScrollViewer>
-                        </TabItem>
-                        <TabItem Header="Page #2" />
-                    </local:TabControlTitled>
+                                    </Image>
+                                </ScrollViewer>
+                            </TabItem>
+                            <TabItem Header="Page #2" />
+                        </TabControl>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 
@@ -169,7 +235,7 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../Images/add.png" Height="16" />
-                        <Label Content="Искать..." />
+                        <Label Content="Поиск..." />
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
