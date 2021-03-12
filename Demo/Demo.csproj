@@ -60,10 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ModelView\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Fody" Version="6.4.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
