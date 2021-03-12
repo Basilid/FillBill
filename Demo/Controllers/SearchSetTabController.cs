@@ -1,11 +1,11 @@
-﻿using PropertyChanged;
+﻿using System.Windows.Controls;
+using PropertyChanged;
 
 namespace Demo
 {
     [AddINotifyPropertyChangedInterface]
-    public class SearchSetViewModel
+    public class SearchSetTabController : TabController<SearchSet>
     {
-        public SearchSet SearchSet { get; set; }
         public Package SelectedPackage { get; set; }
     }
 }

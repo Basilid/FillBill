@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Autofac;
 
 namespace VirtualList
 {
@@ -38,5 +39,7 @@ namespace VirtualList
                     return new Game { Name = ss[0], LogoURL = ss[1]};
                 }).ToList();
         }
+
+
     }
 }
