@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo"
         mc:Ignorable="d"
-        Title="Fill-Bill WPF Demo" Height="450" Width="800" >
+        Title="Пакет 034456" Height="450" Width="800" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,41 +14,22 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.CommandBindings>
-        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_1" />
-        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2" />
-        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_3" />
-    </Window.CommandBindings>
     <DockPanel HorizontalAlignment="Stretch" UseLayoutRounding="False" Background="SteelBlue">
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 Status
             </StatusBarItem>
         </StatusBar>
-        <local:TabControlTitled DockPanel.Dock="Top">
+        <local:TabControlTitled DockPanel.Dock="Top" x:Name="MainTabControl">
             <local:TabControlTitled.LeftTitle>
                 <StackPanel Orientation="Horizontal" MouseDown="Title_MouseDown">
                     <Image Source="../Images/FillBill.png" />
                     <TextBlock FontWeight="Bold"
-                               Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                               Text="Fill-Bill WPF Demo"
                                Margin="10,0,10,0" Foreground="Azure" VerticalAlignment="Center"/>
                 </StackPanel>
             </local:TabControlTitled.LeftTitle>
-            <local:TabControlTitled.RightTitle>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="🗕" Command="{x:Static SystemCommands.MinimizeWindowCommand}" Padding="5,0,5,0"/>
-                    <Button Content="🗖" Command="{x:Static SystemCommands.MaximizeWindowCommand}" Padding="5,0,5,0"/>
-                    <Button Content="❌" Command="{x:Static SystemCommands.CloseWindowCommand}" Background="Red" Padding="10,0,10,0"/>
-                </StackPanel>
-            </local:TabControlTitled.RightTitle>
-            <local:TabControlTitled.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="AllowDrop" Value="True"/>
-                    <EventSetter Event="PreviewMouseMove" Handler="TabItem_PreviewMouseMove"/>
-                    <EventSetter Event="Drop" Handler="TabItem_Drop"/>
-                </Style>
-            </local:TabControlTitled.Resources>
-            <TabItem Name="SearchTab1">
+            <!--<TabItem Name="SearchTab1">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="../Images/search.png" Height="16" />
@@ -58,7 +39,7 @@
                         </TextBlock>
                     </StackPanel>
                 </TabItem.Header>
-            </TabItem>
+            </TabItem>-->
             <TabItem Name="PackageTab">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -81,7 +62,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="4*"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock FontWeight="Bold" Background="DodgerBlue" Foreground="Azure" Padding="5" TextAlignment="Center">
                             <Run Foreground="PowderBlue">ПАКЕТ -</Run>
@@ -95,28 +76,8 @@
                                 <MenuItem Header="Перепроверка" />
                             </MenuItem>
                         </Menu>
-                        <GridSplitter VerticalAlignment="Stretch" Height="5" Grid.Row="3" />
-                        <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle1}" 
-                                  Name="TreeView1" Grid.Row="2">
-                            <TreeView.Resources>
-                                <HierarchicalDataTemplate DataType="{x:Type local:Package}"
-                                                          ItemsSource="{Binding Path=Docs}">
-                                    <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
-                                                RenderTransformOrigin="0.5,0.5">
-                                        <Image Source="/Images/db.png" Height="16" />
-                                        <Label Content="{Binding Number, StringFormat='Пакет: {0}'}" />
-                                    </StackPanel>
-                                </HierarchicalDataTemplate>
-                                <HierarchicalDataTemplate DataType="{x:Type local:SMGS}">
-                                    <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
-                                                RenderTransformOrigin="0.5,0.5">
-                                        <Image Source="/Images/document.png" Height="16" />
-                                        <Label Content="{Binding Number, StringFormat='СМГС: {0}'}" />
-                                    </StackPanel>
-                                </HierarchicalDataTemplate>
-                            </TreeView.Resources>
-                        </TreeView>
-                        
+                        <ListBox Grid.Row="2"></ListBox>
+                        <GridSplitter Grid.Row="3" Height="5"></GridSplitter>
                         <DockPanel Grid.Row="4">
                             <TextBlock FontWeight="Bold" Background="YellowGreen" Padding="3" TextAlignment="Center" DockPanel.Dock="Top">
                                 <Run Foreground="White">КОММЕНТАРИИ</Run>
@@ -144,7 +105,28 @@
                                     </Image>
                                 </ScrollViewer>
                             </TabItem>
-                            <TabItem Header="Page #2" />
+                            <TabItem Header="Page #2">
+                                <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle1}" 
+                                          Name="TreeView1">
+                                    <TreeView.Resources>
+                                        <HierarchicalDataTemplate DataType="{x:Type local:Package}"
+                                                                  ItemsSource="{Binding Path=Docs}">
+                                            <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
+                                                        RenderTransformOrigin="0.5,0.5">
+                                                <Image Source="/Images/db.png" Height="16" />
+                                                <Label Content="{Binding Number, StringFormat='Пакет: {0}'}" />
+                                            </StackPanel>
+                                        </HierarchicalDataTemplate>
+                                        <HierarchicalDataTemplate DataType="{x:Type local:SMGS}">
+                                            <StackPanel SnapsToDevicePixels="True" Orientation="Horizontal" DockPanel.Dock="Top"
+                                                        RenderTransformOrigin="0.5,0.5">
+                                                <Image Source="/Images/document.png" Height="16" />
+                                                <Label Content="{Binding Number, StringFormat='СМГС: {0}'}" />
+                                            </StackPanel>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.Resources>
+                                </TreeView>
+                            </TabItem>
                         </TabControl>
                     </DockPanel>
                 </Grid>

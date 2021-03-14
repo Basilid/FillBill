@@ -2,9 +2,9 @@
 
 namespace Demo
 {
-    public interface ITabController<T>
+    public interface ITabController<out T>
     {
-        T Model { get; set; }
+        T Model { get; }
         TabItem TabItem { get; set; }
     }
 }

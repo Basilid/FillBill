@@ -12,7 +12,7 @@
                 <StackPanel>
                     <StackPanel>
                         <Label FontWeight="Bold" Background="CadetBlue" Foreground="Azure" HorizontalContentAlignment="Center" Content="Критерии поиска" />
-                        <ListBox ItemsSource="{Binding Conditions}" MinHeight="50" BorderBrush="Transparent">
+                        <ListBox ItemsSource="{Binding Conditions}" DataContext="{Binding}" MinHeight="50" BorderBrush="Transparent" Name="SearchConditionsList">
                             <ListBox.Resources>
                                 <DataTemplate DataType="{x:Type local:SearchCondition}">
                                     <Grid>
@@ -29,7 +29,7 @@
                                         <ToggleButton Margin="2" Grid.Column="3" IsChecked="{Binding IsFixed}"  IsTabStop="False">
                                             <Image Source="../Images/star.png" Height="16"/>
                                         </ToggleButton>
-                                        <Button Margin="2" Grid.Column="4" IsTabStop="False" Tag="{Binding}">
+                                        <Button Margin="2" Grid.Column="4" IsTabStop="False" Command="Delete" Tag="{Binding ElementName=SearchConditionsList, Path=DataContext}" CommandParameter="{Binding}">
                                             <Image Source="../Images/remove.png" Height="16"/>
                                         </Button>
                                     </Grid>
@@ -38,7 +38,7 @@
                         </ListBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Margin="5">
+                        <Button Margin="5" Command="New" CommandParameter="{Binding}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="/Images/add.png" Height="16" />

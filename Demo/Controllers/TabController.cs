@@ -1,39 +1,43 @@
 ﻿using System.Windows.Controls;
-using PropertyChanged;
 using System;
+using ReactiveUI.Fody.Helpers;
 
 namespace Demo
 {
-    [AddINotifyPropertyChangedInterface]
     public abstract class TabController<T> : ITabController<T>
     {
-        public T Model { get; set; }
-        public TabItem TabItem { get; set; }
+        [Reactive]
+        public virtual T Model { get; set; }
+
+        [Reactive]
+        public virtual TabItem TabItem { get; set; }
     }
 
     public static class TabController
     {
-        private static class TabControllerFactory<Tbase>
+        private static class TabControllerFactory<TBase>
         {
             public static Type ImplementationType;                        
         }
 
-        public static TabController<Tbase> Create<Tbase>()
-            where Tbase: class
+        public static TabController<TBase> Create<TBase>(TabItem tabItem, TBase content)
+            where TBase: class
         {
-            var res = (TabController<Tbase>)Activator.CreateInstance(TabControllerFactory<Tbase>.ImplementationType);
+            var res = (TabController<TBase>)Activator.CreateInstance(TabControllerFactory<TBase>.ImplementationType);
+            res.TabItem = tabItem;
+            res.Model = content;
             return res;
         }
 
-        public static void RegisterFactory<Tbase,Timp>()
-            where Timp: TabController<Tbase>
+        public static void RegisterFactory<TBase,TImp>()
+            where TImp: TabController<TBase>
         {
-            TabControllerFactory<Tbase>.ImplementationType = typeof(Timp);
+            TabControllerFactory<TBase>.ImplementationType = typeof(TImp);
         }
 
-        public static bool IsRegistered<Tbase>()
+        public static bool IsRegistered<TBase>()
         {
-            return TabControllerFactory<Tbase>.ImplementationType != null;
+            return TabControllerFactory<TBase>.ImplementationType != null;
         }
     }
 }

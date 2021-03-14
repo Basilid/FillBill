@@ -64,7 +64,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.3.2" />
+    <PackageReference Include="ReactiveUI" Version="13.2.2" />
+    <PackageReference Include="ReactiveUI.Fody" Version="13.2.2" />
+    <PackageReference Include="ReactiveUI.WPF" Version="13.2.2" />
   </ItemGroup>
 
 </Project>
