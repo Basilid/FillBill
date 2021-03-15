@@ -41,7 +41,6 @@ namespace Demo
 
             }
         };
-
         public MainController()
         {
             TabController.RegisterFactory<Package, PackageTabController>();

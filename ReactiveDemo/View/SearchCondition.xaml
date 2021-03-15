@@ -1,0 +1,29 @@
+﻿<rxui:ReactiveUserControl x:Class="ReactiveDemo.SearchConditionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReactiveDemo"
+             x:TypeArguments="local:SearchConditionViewModel"
+             xmlns:rxui="http://reactiveui.net"
+             mc:Ignorable="d"
+             d:DesignWidth="200" d:DesignHeight="20">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" SharedSizeGroup="SearchFieldName"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="SearchPattern"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <CheckBox Name="cbIsActive" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox Name="cbFieldName" Grid.Column="1" IsEditable="True" Text="{Binding FieldName}" VerticalAlignment="Center" VerticalContentAlignment="Center" IsTabStop="True" />
+        <TextBox Name="tbPattern" Grid.Column="2" Text="{Binding Pattern}" MinWidth="100" MinHeight="22" VerticalAlignment="Center" VerticalContentAlignment="Center"  IsTabStop="True" BorderBrush="Transparent"/>
+        <ToggleButton Name="bFixed" Margin="2" Grid.Column="3" IsChecked="{Binding IsFixed}"  IsTabStop="False">
+            <Image Source="../Images/star.png" Height="16"/>
+        </ToggleButton>
+        <Button Name="bRemove" Margin="2" Grid.Column="4" IsTabStop="False" Command="Delete" Tag="{Binding ElementName=SearchConditionsList, Path=DataContext}" CommandParameter="{Binding}">
+            <Image Source="../Images/remove.png" Height="16"/>
+        </Button>
+    </Grid>
+</rxui:ReactiveUserControl>
