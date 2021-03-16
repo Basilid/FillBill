@@ -25,6 +25,8 @@ namespace ReactiveDemo
         public SearchConditionView()
         {
             InitializeComponent();
+            ViewModel = new SearchConditionViewModel();
+
             this.WhenActivated(disp =>
             {
                 this.Bind(ViewModel,
@@ -32,6 +34,10 @@ namespace ReactiveDemo
                     view => view.cbIsActive.IsChecked)
                     .DisposeWith(disp);
 
+                this.BindCommand(ViewModel, 
+                    vm => vm.RemoveConditionCommand, 
+                    v => v.bRemove)
+                    .DisposeWith(disp);
             });
         }
     }

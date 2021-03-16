@@ -11,18 +11,18 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" SharedSizeGroup="SearchFieldName"/>
-            <ColumnDefinition Width="Auto" SharedSizeGroup="SearchPattern"/>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="*" SharedSizeGroup="SearchFieldName"/>
+            <ColumnDefinition Width="*" SharedSizeGroup="SearchPattern"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <CheckBox Name="cbIsActive" Grid.Column="0" VerticalAlignment="Center"/>
-        <ComboBox Name="cbFieldName" Grid.Column="1" IsEditable="True" Text="{Binding FieldName}" VerticalAlignment="Center" VerticalContentAlignment="Center" IsTabStop="True" />
-        <TextBox Name="tbPattern" Grid.Column="2" Text="{Binding Pattern}" MinWidth="100" MinHeight="22" VerticalAlignment="Center" VerticalContentAlignment="Center"  IsTabStop="True" BorderBrush="Transparent"/>
-        <ToggleButton Name="bFixed" Margin="2" Grid.Column="3" IsChecked="{Binding IsFixed}"  IsTabStop="False">
+        <ComboBox Name="cbFieldName" Grid.Column="1" IsEditable="True" VerticalAlignment="Center" VerticalContentAlignment="Center" IsTabStop="True" />
+        <TextBox Name="tbPattern" Grid.Column="2" MinWidth="100" MinHeight="22" VerticalAlignment="Center" VerticalContentAlignment="Center"  IsTabStop="True" BorderBrush="Transparent"/>
+        <ToggleButton Name="bFixed" Margin="2" Grid.Column="3" IsTabStop="False">
             <Image Source="../Images/star.png" Height="16"/>
         </ToggleButton>
-        <Button Name="bRemove" Margin="2" Grid.Column="4" IsTabStop="False" Command="Delete" Tag="{Binding ElementName=SearchConditionsList, Path=DataContext}" CommandParameter="{Binding}">
+        <Button Name="bRemove" Margin="2" Grid.Column="4" IsTabStop="False">
             <Image Source="../Images/remove.png" Height="16"/>
         </Button>
     </Grid>

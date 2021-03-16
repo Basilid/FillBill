@@ -1,4 +1,5 @@
-﻿using ReactiveUI.Fody.Helpers;
+﻿using System.Windows.Input;
+using ReactiveUI.Fody.Helpers;
 
 namespace ReactiveDemo
 {
@@ -12,5 +13,12 @@ namespace ReactiveDemo
         public string FieldName { get; set; }
         [Reactive]
         public string Pattern { get; set; }
+
+        public ICommand RemoveConditionCommand;
+
+        public SearchConditionViewModel()
+        {
+            
+        }
     }
 }

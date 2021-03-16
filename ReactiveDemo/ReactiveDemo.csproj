@@ -101,10 +101,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\PackageStatus.cs" />
+    <Compile Include="Model\PackageStatusStringConverter.cs" />
+    <Compile Include="ViewModel\SearchSetViewModel.cs" />
     <Compile Include="View\SearchCondition.xaml.cs">
       <DependentUpon>SearchCondition.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\SearchConditionViewModel.cs" />
+    <Compile Include="View\SearchSetView.xaml.cs">
+      <DependentUpon>SearchSetView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -118,6 +124,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\SearchCondition.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SearchSetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

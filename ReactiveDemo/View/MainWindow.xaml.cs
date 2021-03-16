@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ReactiveUI;
+using Splat;
 
 namespace ReactiveDemo
 {
@@ -26,6 +27,18 @@ namespace ReactiveDemo
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
+        }
+
+        private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var tabItem = new TabItem
+            {
+                Content = new SearchSetView()
+            };
+            var indexTabItem = MainTabControl.Items.IndexOf(sender);
+            MainTabControl.Items.Insert(indexTabItem, tabItem);
+            //MainTabControl.SelectedItem = tabItem;
+            Dispatcher.BeginInvoke((Action)(() => MainTabControl.SelectedIndex = indexTabItem));
         }
     }
 }

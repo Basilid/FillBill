@@ -8,7 +8,11 @@
         xmlns:local="clr-namespace:ReactiveDemo"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <TabControl Name="MainTabControl">
+        <TabItem Name="NewTab" MouseDown="UIElement_OnMouseDown">
+            <TabItem.Header>
+                <TextBlock>+ New...</TextBlock>
+            </TabItem.Header>
+        </TabItem>
+    </TabControl>
 </rxui:ReactiveWindow>
