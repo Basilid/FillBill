@@ -1,60 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
+	  <OutputType>WinExe</OutputType>
+	  <LangVersion>9</LangVersion>
+	  <TargetFramework>net5.0-windows</TargetFramework>
+	  <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\add.png" />
-    <None Remove="Images\db.png" />
-    <None Remove="Images\document.png" />
-    <None Remove="Images\file.png" />
-    <None Remove="Images\FillBill.png" />
-    <None Remove="Images\next.png" />
-    <None Remove="Images\pin.png" />
-    <None Remove="Images\remove.png" />
-    <None Remove="Images\search.png" />
-    <None Remove="Images\SMGS.png" />
-    <None Remove="Images\star.png" />
+    <None Remove="Images\*.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\add.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\db.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\file.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\FillBill.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\next.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Images\document.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\pin.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\remove.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\search.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\SMGS.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\star.png">
+    <Content Include="Images\*.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -68,6 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.3.3" />
     <PackageReference Include="ReactiveUI" Version="13.2.2" />
     <PackageReference Include="ReactiveUI.Fody" Version="13.2.2" />
     <PackageReference Include="ReactiveUI.WPF" Version="13.2.2" />

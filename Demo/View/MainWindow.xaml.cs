@@ -39,5 +39,10 @@ namespace Demo
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+        private void ButtonRemove_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
