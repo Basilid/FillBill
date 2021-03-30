@@ -4,5 +4,7 @@
     {
         public string Ref { get; set; }
         public string Ref2 { get; set; }
+        public string Ref3 { get; set; }
+
     }
 }
